@@ -7,20 +7,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/geoplotlib-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/geoplotlib-{{ version }}.tar.gz
   sha256: a31d5d1a0099926fa0ef4341ac98f52d96e0f1e5395161a81280f3fccaf86c53
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - numpy
     - pyglet >=1.2.4
 
@@ -30,6 +30,7 @@ test:
   requires:
     - libglu  # [linux]
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
   files:
